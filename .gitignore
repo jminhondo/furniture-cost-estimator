@@ -6,7 +6,7 @@ outputs/
 .env.local
 data/raw/
 .venv/
-models/
+/models/
 
 # Next.js
 frontend/.next/
