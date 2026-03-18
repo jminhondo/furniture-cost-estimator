@@ -3,8 +3,5 @@
   "outputDirectory": "frontend/.next",
   "installCommand": "cd frontend && npm ci",
   "devCommand": "cd frontend && npm run dev",
-  "framework": "nextjs",
-  "env": {
-    "BACKEND_URL": "@backend-url"
-  }
+  "framework": "nextjs"
 }
