@@ -1,10 +1,7 @@
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const path = require("path");
 
 const backendUrl =
-  process.env.BACKEND_URL?.replace(/\/$/, "") ?? "http://localhost:8000";
+  (process.env.BACKEND_URL || "http://localhost:8000").replace(/\/$/, "");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -22,4 +19,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
