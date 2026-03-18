@@ -1,0 +1,24 @@
+__pycache__/
+*.pkl
+*.pyc
+outputs/
+.env
+.env.local
+data/raw/
+.venv/
+models/
+
+# Next.js
+frontend/.next/
+frontend/node_modules/
+frontend/.env.local
+frontend/tsconfig.tsbuildinfo
+
+# macOS
+.DS_Store
+
+# Python packaging artifacts
+*.egg-info/
+
+# Claude internals
+.claude/

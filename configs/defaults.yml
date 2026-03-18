@@ -1,0 +1,206 @@
+# =============================================================================
+# Furniture Cost Estimator — Default Configuration
+# =============================================================================
+# All prices in USD. Dimensions in mm.
+
+# ---------------------------------------------------------------------------
+# Material catalog
+# Each entry: aliases are free-text names that resolve to this material_id.
+# ---------------------------------------------------------------------------
+materiales:
+  mdf_18:
+    id: mdf_18
+    nombre: "MDF 18mm"
+    espesor_mm: 18
+    precio_usd_m2: 12.50
+    hoja_largo_mm: 2750
+    hoja_ancho_mm: 1830
+    aliases:
+      - mdf
+      - mdf 18
+      - mdf 18mm
+      - mdf melamínico
+      - mdf melaminico
+      - melamina
+      - melamina 18
+      - melamina 18mm
+      - melamínica 18mm
+      - tablero melamina
+      - sin_material       # default fallback
+
+  mdf_15:
+    id: mdf_15
+    nombre: "MDF 15mm"
+    espesor_mm: 15
+    precio_usd_m2: 11.00
+    hoja_largo_mm: 2750
+    hoja_ancho_mm: 1830
+    aliases:
+      - mdf 15
+      - mdf 15mm
+      - melamina 15
+      - melamina 15mm
+
+  hdf_3:
+    id: hdf_3
+    nombre: "HDF 3mm"
+    espesor_mm: 3
+    precio_usd_m2: 5.50
+    hoja_largo_mm: 2440
+    hoja_ancho_mm: 1220
+    aliases:
+      - hdf
+      - hdf 3
+      - hdf 3mm
+      - fondo hdf
+      - hardboard
+      - fondo melamina
+
+  madera_pino_20:
+    id: madera_pino_20
+    nombre: "Madera Pino 20mm"
+    espesor_mm: 20
+    precio_usd_m2: 38.00
+    hoja_largo_mm: 2400
+    hoja_ancho_mm: 600
+    aliases:
+      - madera
+      - pino
+      - madera pino
+      - madera maciza
+      - madera maciza 20mm
+      - pino 20mm
+
+  melamina_25:
+    id: melamina_25
+    nombre: "Melamina 25mm"
+    espesor_mm: 25
+    precio_usd_m2: 16.00
+    hoja_largo_mm: 2750
+    hoja_ancho_mm: 1830
+    aliases:
+      - melamina 25
+      - melamina 25mm
+      - mdf 25
+      - mdf 25mm
+
+# Material to use when nothing matches
+material_default: mdf_18
+
+# ---------------------------------------------------------------------------
+# Saw cut settings
+# ---------------------------------------------------------------------------
+corte:
+  kerf_mm: 3          # saw blade width consumed per cut
+  margen_hoja_mm: 10  # unusable border around each sheet
+
+# ---------------------------------------------------------------------------
+# Edge banding (canto PVC)
+# ---------------------------------------------------------------------------
+canto:
+  precio_usd_ml: 0.85
+  # Component types whose visible edges receive edge banding
+  tipos_que_llevan_canto:
+    - puerta
+    - lateral
+    - techo
+    - piso
+    - entrepaño
+    - cajon_frente
+
+# ---------------------------------------------------------------------------
+# Hardware catalog
+# ---------------------------------------------------------------------------
+herrajes:
+  bisagra_blum_110:
+    id: bisagra_blum_110
+    nombre: "Bisagra Blum 110° soft-close"
+    precio_usd: 4.50
+    unidad: u
+
+  corredera_blum_400:
+    id: corredera_blum_400
+    nombre: "Corredera Blum 45kg 400mm"
+    precio_usd: 16.00
+    unidad: par
+
+  corredera_blum_500:
+    id: corredera_blum_500
+    nombre: "Corredera Blum 45kg 500mm"
+    precio_usd: 18.00
+    unidad: par
+
+  corredera_blum_600:
+    id: corredera_blum_600
+    nombre: "Corredera Blum 45kg 600mm"
+    precio_usd: 22.00
+    unidad: par
+
+  tirador_barra_160:
+    id: tirador_barra_160
+    nombre: "Tirador barra inox 160mm"
+    precio_usd: 3.20
+    unidad: u
+
+# ---------------------------------------------------------------------------
+# Hardware matching rules
+# ---------------------------------------------------------------------------
+reglas_herrajes:
+  # Bisagras per door, keyed by max door height (mm)
+  bisagras_por_puerta:
+    - max_altura_mm: 1000
+      cantidad: 2
+      herraje_id: bisagra_blum_110
+    - max_altura_mm: 1600
+      cantidad: 3
+      herraje_id: bisagra_blum_110
+    - max_altura_mm: 9999
+      cantidad: 4
+      herraje_id: bisagra_blum_110
+
+  # Corredera per drawer, keyed by max drawer depth (mm)
+  correderas_por_cajon:
+    - max_profundidad_mm: 450
+      herraje_id: corredera_blum_400
+    - max_profundidad_mm: 550
+      herraje_id: corredera_blum_500
+    - max_profundidad_mm: 9999
+      herraje_id: corredera_blum_600
+
+  # Default drawer depth when cajon_lateral is not found
+  profundidad_cajon_default_mm: 500
+
+# ---------------------------------------------------------------------------
+# Cost factors (used by Layer 3)
+# ---------------------------------------------------------------------------
+overhead_pct: 0.18
+iva_pct: 0.21
+margen_default: 0.32
+
+# ---------------------------------------------------------------------------
+# Pricing scenarios (applied to precio_sugerido)
+# ---------------------------------------------------------------------------
+precio:
+  margen_default: 0.32
+  iva_pct: 0.21
+  escenario_conservador_factor: 0.90   # -10%
+  escenario_agresivo_factor: 1.08      # +8%
+
+# ---------------------------------------------------------------------------
+# Company info (used by QuoteGenerator PDF header)
+# ---------------------------------------------------------------------------
+empresa:
+  nombre: "Mi Carpintería S.R.L."
+  direccion: "Av. Principal 1234, Buenos Aires"
+  telefono: "+54 11 1234-5678"
+  email: "ventas@carpinteria.com"
+  rut: "30-12345678-9"
+  condiciones_pago: "50% anticipo, 50% contra entrega"
+  garantia: "12 meses en estructura, 6 meses en herrajes"
+
+# ---------------------------------------------------------------------------
+# CRM integration (endpoint overrideable via CRM_ENDPOINT env var)
+# ---------------------------------------------------------------------------
+crm:
+  endpoint: ""        # set via CRM_ENDPOINT in .env; empty = disabled
+  timeout_s: 10
