@@ -1,5 +1,3 @@
-const path = require("path");
-
 const backendUrl =
   (process.env.BACKEND_URL || "http://localhost:8000").replace(/\/$/, "");
 
@@ -12,10 +10,6 @@ const nextConfig = {
         destination: `${backendUrl}/api/:path*`,
       },
     ];
-  },
-  webpack(config) {
-    config.resolve.alias["@"] = path.resolve(__dirname, "src");
-    return config;
   },
 };
 
