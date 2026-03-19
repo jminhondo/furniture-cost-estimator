@@ -164,7 +164,7 @@ class PDFVisionAgent:
         result = await agent.parse("dummy.pdf", proyecto_id="test")
     """
 
-    MODEL = "claude-3-5-haiku-20241022"
+    MODEL = "claude-haiku-4-5-20251001"
     MAX_TOKENS = 1024
     REVISION_THRESHOLD = 0.60
 
