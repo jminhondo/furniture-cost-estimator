@@ -1,7 +1,7 @@
 """
 LLM-based component classifier (last resort in cascade).
 
-Calls Claude claude-haiku-4-5-20251001 with a structured prompt describing the component.
+Calls Claude claude-sonnet-4-6 with a structured prompt describing the component.
 Returns (TipoInferido, confidence) or None if the model cannot classify it.
 """
 
@@ -47,7 +47,7 @@ Classify this furniture component:
 class LLMClassifierTool:
     """Classify a component using Claude when rule-based tools fail."""
 
-    MODEL = "claude-haiku-4-5-20251001"
+    MODEL = "claude-sonnet-4-6"
     MAX_TOKENS = 256
 
     def __init__(self, client: AsyncAnthropic | None = None) -> None:
