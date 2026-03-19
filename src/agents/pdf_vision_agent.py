@@ -165,7 +165,7 @@ class PDFVisionAgent:
     """
 
     MODEL = "claude-haiku-4-5-20251001"
-    MAX_TOKENS = 1024
+    MAX_TOKENS = 4096
     REVISION_THRESHOLD = 0.60
 
     # Page types that may contain extractable furniture parts
